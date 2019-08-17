@@ -1,4 +1,4 @@
-# Useful Tool Repository:
+# TweeVEBot:
 
 A twitter bot tweeting interesting cyber security realted updates, including vulnerabilties from various sources in concise intersting ways.
 
