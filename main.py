@@ -1,14 +1,21 @@
 import tweepy
 import contextlib
-from json import loads
+import json
 from urllib.request import urlopen, Request
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 
 
-# Authenticate to Twitter
-auth = tweepy.OAuthHandler("<>", "<>")
-auth.set_access_token("<>", "<>")
+def get_creds():
+    with open('creds.txt') as file:
+        auth = json.load(file)
+        for c in auth['creds']:
+            auth1 = c['cred1']
+            auth2 = c['cred2']
+            auth3 = c['cred3']
+            auth4 = c['cred4'] 
+
+    return [auth1, auth2, auth3, auth4]
 
 
 def twitter_auth_check():
@@ -39,21 +46,22 @@ def make_tiny(url):
 
 
 def get_cves():
-    tweet = ("Newest: CVE | CVSS(>=8) | Product | Sploits: \n\n")
+    tweet = ("Updated: CVE|CVSS(7+)|Vendor:\n\n")
     count = 0
-    url = "http://www.cvedetails.com/json-feed.php?numrows=10&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=1&cvssscoremin=8"
+    url = "https://www.cvedetails.com/json-feed.php?numrows=10&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=2&cvssscoremin=7"
     json_req = urlopen(Request(url, headers={'User-Agent': 'Mozilla'}))
-    data = loads(json_req.read().decode())
+    data = json.loads(json_req.read().decode())
     for entry in data:
         cve_id = entry.get('cve_id')
         product = html_parse(cve_id)
         if len(product.split()) > 1:
             list = (product.split())
             product = (list[0])
-        exploit_count = entry.get('exploit_count')
         cvss_score = entry.get('cvss_score')
+        if cvss_score == "10.0":
+            cvss_score = " 10"
         url = make_tiny(entry.get('url'))
-        tweet = (tweet + cve_id + " | " + cvss_score + " | " + product + " | " + exploit_count + " | " + url + "\n")
+        tweet = (tweet + cve_id + " | " + cvss_score + " | " + product + " | " + url + "\n")
         count = count + 1
         if count is 3:
             break
@@ -78,6 +86,11 @@ def html_parse(cve_id):
     trim = tail
     head, sep, tail = trim.partition('</a>')
     return head
+
+
+creds = get_creds()
+auth = tweepy.OAuthHandler(creds[0], creds[1])
+auth.set_access_token(creds[2], creds[3])
 
 
 if __name__ == '__main__':
