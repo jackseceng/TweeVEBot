@@ -1,14 +1,11 @@
+import json
 import tweepy
-import contextlib
-from json import loads
-from urllib.request import urlopen, Request
-from urllib.parse import urlencode
-from bs4 import BeautifulSoup
+import optparse
 
-
-# Authenticate to Twitter
-auth = tweepy.OAuthHandler("onIbn4xMUIIqsK3W69RZV05Kb", "fLarMKo7vgO4FaYU6kjxlDsmEHLDwgWSF16Vpxqem7Yrtm4A0l")
-auth.set_access_token("804500358676545538-OwizJlh1Os3GCicn0cJaZJbwqnfe7Ww", "l6wCxPbLUSbGBYR1AktivWHtEFduLvYs75Wh0GF7pjT4I")
+import code_exec
+import ddos
+import priv_esc
+import sqli
 
 
 def twitter_auth_check():
@@ -20,68 +17,50 @@ def twitter_auth_check():
         print("Error during authentication")
 
 
-def twitter_status_update_test(tweet):
-    tweet = (tweet + "\n#CyberSecurity")
-    print(tweet)
-    print(len(tweet))
+def twitter_status_update_test(status):
+    print(status)
+    print(len(status))
 
 
-def twitter_status_update(tweet):
-    tweet = (tweet + "\n#CyberSecurity")
+def twitter_status_update(status):
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-    api.update_status(tweet)
+    api.update_status(status)
 
 
-def make_tiny(url):
-    request_url = ('http://tinyurl.com/api-create.php?' + urlencode({'url':url}))
-    with contextlib.closing(urlopen(request_url)) as response:
-        return response.read().decode('utf-8')
+def get_creds():
+    auth_json = json.load(open('auth.json'))
+    for c in auth_json:
+        auth1 = c['cred1']
+        auth2 = c['cred2']
+        auth3 = c['cred3']
+        auth4 = c['cred4']
+
+    return [auth1, auth2, auth3, auth4]
 
 
-def get_cves():
-    tweet = ("Newest: CVE | CVSS(>=8) | Product | Sploits: \n\n")
-    count = 0
-    url = "http://www.cvedetails.com/json-feed.php?numrows=10&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=1&cvssscoremin=8"
-    json_req = urlopen(Request(url, headers={'User-Agent': 'Mozilla'}))
-    data = loads(json_req.read().decode())
-    for entry in data:
-        cve_id = entry.get('cve_id')
-        product = html_parse(cve_id)
-        if len(product.split()) > 1:
-            list = (product.split())
-            product = (list[0])
-        exploit_count = entry.get('exploit_count')
-        cvss_score = entry.get('cvss_score')
-        url = make_tiny(entry.get('url'))
-        tweet = (tweet + cve_id + " | " + cvss_score + " | " + product + " | " + exploit_count + " | " + url + "\n")
-        count = count + 1
-        if count is 3:
-            break
-    return tweet
-
-
-def html_parse(cve_id):
-    url = "https://www.cvedetails.com/cve/" + cve_id
-    f = urlopen(Request(url, headers={'User-Agent': 'Mozilla'}))
-    soup = BeautifulSoup(f, 'html.parser')
-    table = soup.find(lambda tag: tag.name == 'table' and tag.has_attr('id') and tag['id'] == "vulnprodstable")
-    rows = table.find_all('td')
-    buffer = []
-    for item in rows:
-        buffer.append(str(item))
-    try:
-        product_line = buffer[3]
-    except:
-        "IndexError: list index out of range"
-        return "none"
-    head, sep, tail = product_line.partition('">')
-    trim = tail
-    head, sep, tail = trim.partition('</a>')
-    return head
+def compose_tweet(month):
+    if month is 0:
+        return code_exec.compose()
+    if month is 1:
+        return sqli.compose()
+    if month is 2:
+        return ddos.compose()
+    if month is 3:
+        return priv_esc.compose()
 
 
 if __name__ == '__main__':
-    tweet = get_cves()
+    parser = optparse.OptionParser()
+    parser.add_option('-m',
+                      action="store", dest="month",
+                      help="query string", default="spam")
+    options, args = parser.parse_args()
+    month = int(options.month)
+
+    creds = get_creds()
+    auth = tweepy.OAuthHandler(creds[0], creds[1])
+    auth.set_access_token(creds[2], creds[3])
+    tweet = compose_tweet(month)
     twitter_auth_check()
-    twitter_status_update_test(tweet)
+    #twitter_status_update_test(tweet)
     twitter_status_update(tweet)
