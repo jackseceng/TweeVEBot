@@ -39,13 +39,13 @@ def get_creds():
 
 
 def compose_tweet(month):
-    if month is 0:
+    if month == 0:
         return code_exec.compose()
-    if month is 1:
+    if month == 1:
         return sqli.compose()
-    if month is 2:
+    if month == 2:
         return ddos.compose()
-    if month is 3:
+    if month == 3:
         return priv_esc.compose()
 
 
@@ -62,5 +62,5 @@ if __name__ == '__main__':
     auth.set_access_token(creds[2], creds[3])
     tweet = compose_tweet(month)
     twitter_auth_check()
-    #twitter_status_update_test(tweet)
-    twitter_status_update(tweet)
+    twitter_status_update_test(tweet)
+    #twitter_status_update(tweet)
