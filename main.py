@@ -62,5 +62,5 @@ if __name__ == '__main__':
     auth.set_access_token(creds[2], creds[3])
     tweet = compose_tweet(month)
     twitter_auth_check()
-    twitter_status_update_test(tweet)
-    #twitter_status_update(tweet)
+    #twitter_status_update_test(tweet)
+    twitter_status_update(tweet)
