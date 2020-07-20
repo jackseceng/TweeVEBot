@@ -2,10 +2,7 @@
 
 A twitter bot tweeting interesting cyber security realted updates, including vulnerabilties from various sources in concise intersting ways.
 
-Form one:
-> Tweets top 3 CVEs from https://cvedetails.com which have a CVSS score of at least 8+. Tweet includes recorded exploit count, affected products and generated tinyurl for more info
-
-Form two (WIP):
+Form two (Current):
 > Gather top exploits/vulnerabilities from multiple sources, and compile a top 3 of the most common types of new attack vectors monthly.
 
 > Decided on these 4 categories: SQLi, Remote Execution, DDoS & Privilege Escalation
@@ -41,5 +38,8 @@ Crontab config (for 15:00 on first dat of each month)
 0 15 1 11 * python3 main.py -m 2
 
 0 15 1 12 * python3 main.py -m 3
+
+Form one (Depricated):
+> Tweets top 3 CVEs from https://cvedetails.com which have a CVSS score of at least 8+. Tweet includes recorded exploit count, affected products and generated tinyurl for more info
 
 - Developed by Jack: https://jacksec.uk
