@@ -32,7 +32,7 @@ def scoring(score):
 def compose_data(req, header):
     json_resp = req.json()
     json_resp = json_resp[0]
-    elements = (header, "CVE ID: " + json_resp['cve_id'], "CVSS Score: " + scoring(json_resp['cvss_score']), "URL: " + json_resp['url'], '#CyberSecurity #DDOS')
+    elements = (header, "CVE ID: " + json_resp['cve_id'], "CVSS Score: " + scoring(json_resp['cvss_score']), "URL: " + json_resp['url'], '#CyberSecurity', 'Hosted on @googlecloud')
     return '\n'.join(elements)
 
 
