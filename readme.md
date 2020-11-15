@@ -11,7 +11,7 @@ Form two (Current):
 
 > Types include: SQLi, DDoS, Remote Code Execution and Privilege Escalation
 
-> Perhaps a feature that will respond to tweets mentioning the bots account
+> Running on Google Cloud Platform as a Cloud Function, triggered on the first day of each month, at 10:00 GMT by GCP Cloud Scheduler
 
 Form one (Depricated):
 > Tweets top 3 CVEs from https://cvedetails.com which have a CVSS score of at least 8+. Tweet includes recorded exploit count, affected products and generated tinyurl for more info
