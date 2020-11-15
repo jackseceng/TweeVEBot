@@ -1,66 +1,70 @@
-import json
+import base64
 import tweepy
-import optparse
+import requests
 
-import code_exec
-import ddos
-import priv_esc
-import sqli
+from dateutil import parser
+from os import getenv
 
 
-def twitter_auth_check():
+def twitter_auth_check_tweet(status):
+    consumer_key = getenv("consumer_key")
+    consumer_secret = getenv("consumer_secret")
+    access_token = getenv("access_token")
+    access_secret = getenv("access_secret")
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_secret)
+
     api = tweepy.API(auth)
-    try:
-        api.verify_credentials()
-        print("Authentication OK")
-    except:
-        print("Error during authentication")
-
-
-def twitter_status_update_test(status):
-    print(status)
-    print(len(status))
-
-
-def twitter_status_update(status):
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     api.update_status(status)
+    print("Tweet length: " + str(len(status)))
 
 
-def get_creds():
-    auth_json = json.load(open('auth.json'))
-    for c in auth_json:
-        auth1 = c['cred1']
-        auth2 = c['cred2']
-        auth3 = c['cred3']
-        auth4 = c['cred4']
-
-    return [auth1, auth2, auth3, auth4]
+def scoring(score):
+    if 7 <= float(score) <= 8:
+        return str(score + " ⚠")
+    if 8 <= float(score) <= 9:
+        return str(score + " 💣")
+    if 9 <= float(score) <= 10:
+        return str(score + " ☠")
 
 
-def compose_tweet(month):
-    if month == 0:
-        return code_exec.compose()
-    if month == 1:
-        return sqli.compose()
-    if month == 2:
-        return ddos.compose()
-    if month == 3:
-        return priv_esc.compose()
+def compose_data(req, header):
+    json_resp = req.json()
+    json_resp = json_resp[0]
+    elements = (header, "CVE ID: " + json_resp['cve_id'], "CVSS Score: " + scoring(json_resp['cvss_score']), "URL: " + json_resp['url'], '#CyberSecurity #DDOS')
+    return '\n'.join(elements)
 
 
-if __name__ == '__main__':
-    parser = optparse.OptionParser()
-    parser.add_option('-m',
-                      action="store", dest="month",
-                      help="query string", default="spam")
-    options, args = parser.parse_args()
-    month = int(options.month)
+def choose_month(month):
+    if month == '01' or month == '05' or month == '09':
+        req = requests.get("http://www.cvedetails.com/json-feed.php?numrows=1&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=1&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=2&cvssscoremin=8")
+        header = ("🤖Beep Boop... if you want to reach exploit absolution,🤖\n<😈>try out this CVE on Code Execution.<😈>\n\n")
+        status = compose_data(req, header)
+        twitter_auth_check_tweet(status)
+    if month == '02' or month == '06' or month == '10':
+        req = requests.get("http://www.cvedetails.com/json-feed.php?numrows=1&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=1&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=2&cvssscoremin=8")
+        header = ("🤖Beep Boop... get your database some protection,🤖\n💉💾or it'll be pwned by SQL Injection!💉💾\n\n")
+        status = compose_data(req, header)
+        twitter_auth_check_tweet(status)
+    if month == '03' or month == '07' or month == '11':
+        req = requests.get("http://www.cvedetails.com/json-feed.php?numrows=1&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=0&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=2&cvssscoremin=7")
+        header = ("🤖Beep boop... I'm TweeVEBot, & you humans may not have heard this;🤖\n🖥️💣but there's a dangerous vuln, that causes Denial of Service:💣🖥️\n\n")
+        status = compose_data(req, header)
+        twitter_auth_check_tweet(status)
+    if month == '04' or month == '08' or month == '12':
+        req = requests.get("http://www.cvedetails.com/json-feed.php?numrows=1&vendor_id=0&product_id=0&version_id=0&hasexp=0&opec=0&opov=0&opcsrf=0&opfileinc=0&opgpriv=1&opsqli=0&opxss=0&opdirt=0&opmemc=0&ophttprs=0&opbyp=0&opginf=0&opdos=0&orderby=2&cvssscoremin=8")
+        header = ("🤖Beep Boop... I'm a bot and my names TweeVE.🤖\n⏫🖥️did someone ask for a priv' esc. CVE?🖥️⏫\n\n")
+        status = compose_data(req, header)
+        twitter_auth_check_tweet(status)
 
-    creds = get_creds()
-    auth = tweepy.OAuthHandler(creds[0], creds[1])
-    auth.set_access_token(creds[2], creds[3])
-    tweet = compose_tweet(month)
-    twitter_auth_check()
-    #twitter_status_update_test(tweet)
-    twitter_status_update(tweet)
+
+def date_parser(context):
+    timestamp = parser.isoparse(context.timestamp)
+    return timestamp.strftime('%m')
+
+
+def pubsub_trigger(event, context):
+    print("""This Function was triggered by messageId {} published at {}""".format(context.event_id, context.timestamp))
+    month = date_parser(context)
+    choose_month(month)
