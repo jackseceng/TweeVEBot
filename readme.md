@@ -16,7 +16,7 @@ consumer_secret | your twitter API key secret
 access_token | generated twitter access token
 access_secret | generated twitter access token secret
 
-###Branches
+### Branches
 
 *gcp_implementation:*
 
@@ -38,7 +38,7 @@ access_secret | generated twitter access token secret
 
 - [x] Tweet includes recorded exploit count, affected products and generated tinyurl for more info
 
-##Developed by Jack
+## Developed by Jack
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
 https://jacksec.uk
