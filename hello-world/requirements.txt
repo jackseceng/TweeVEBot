@@ -1,0 +1,4 @@
+google-cloud-secret-manager==2.0.0
+tweepy
+python-dateutil
+requests
