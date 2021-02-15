@@ -1,13 +1,10 @@
-# Code for TweeVEBot, Cyber Security news twitter bot:
+# Code for example GCP Twitter bot:
 
-*A twitter bot for tweeting interesting data on CVEs from multiple sources that runs in GCP.*
+*This is Python code from my video tutorial on making twitter bot in GCP. View the original video [![here.](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI)*
 
 ### GCP setup guide:
 
-1. Copy the contents of either the '*monthly*' directory into a new GCP cloud function.
-2. Set up a pub/sub channel with google cloud scheduler with the desired trigger time and date.
-3. Subscribe a new cloud function containing *main.py* and *requirements.txt* to that pub/sub channel.
-5. Add your twitter credentials to GCP Secret Manager in this format:
+1. Add twitter credentials to GCP Secret Manager in this format:
 
 Name | Twitter credential
 ------------ | -------------
@@ -16,9 +13,14 @@ consumer_secret | API secret key
 access_token | generated Access token
 access_secret | generated Access token secret
 
+2. Set up a Pub/Sub channel with GCP Cloud Scheduler set to publish the desired trigger time and date.
+3. Copy the contents the '*hello-world*' directory into a new GCP Cloud Function.
+4. Subscribe the new cloud function to that pub/sub channel.
+5. Await trigger from Pub/Sub, or press 'Run now' in GCP Cloud Scheduler to test.
+
 ### Branch features:
 
-*gcp_implementation branch:*
+*gcp_implementation:*
 
 - [x] Gather top exploits/vulnerabilities from https://cvedetails.com and sift through data to find most recently updated 8+ CVSS score CVE.
 
@@ -28,15 +30,15 @@ access_secret | generated Access token secret
 
 - [x] Integrates with GCP Secret Manager to securely contain TweeVEBot twitter credentials.
 
-- [ ] Report on top 3 most recently modified CVE's of the week
+- [ ] Report on top 3 most recently modified CVE's of the week.
  
-- [ ] Integrate json data from https://nvd.nist.gov
+- [ ] Integrate json data from https://nvd.nist.gov.
 
-*hello_world branch:*
+*hello_world:*
 
 - [x] Part of a [![tutorial video](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI) on GCP twitter bots.
 
-- [x] Set to tweet 'Hello World' into a twitter account.
+- [x] Set to tweet 'Hello World' into the twitter account set up in the tutorial video.
 
 - [x] Integrates with GCP Secret Manager to securely contain twitter credentials.
 
@@ -50,3 +52,4 @@ access_secret | generated Access token secret
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
 https://jacksec.uk
+
