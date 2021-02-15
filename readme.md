@@ -9,12 +9,12 @@
 3. Subscribe your new cloud function to that pub/sub channel.
 5. Add your twitter credentials to GCP Secrets Manager in this format:
 
-Name | Value
+Name | Twitter credential
 ------------ | -------------
-consumer_key | your twitter API key
-consumer_secret | your twitter API key secret
-access_token | generated twitter access token
-access_secret | generated twitter access token secret
+consumer_key | API key
+consumer_secret | API secret key
+access_token | generated Access token
+access_secret | generated Access token secret
 
 ### Branch features
 
