@@ -2,12 +2,9 @@
 
 *This is Python code from my video tutorial on making twitter bot in GCP. View the original video [![here.](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI)*
 
-### GCP setup guide
+### GCP setup guide:
 
-1. Copy the contents of either the '*hello-world*' directory into a new GCP cloud function.
-2. Set up a pub/sub channel with google cloud scheduler with the desired trigger time and date.
-3. Subscribe your new cloud function to that pub/sub channel.
-5. Add your twitter credentials to GCP Secrets Manager in this format:
+1. Add your twitter credentials to GCP Secret Manager in this format:
 
 Name | Twitter credential
 ------------ | -------------
@@ -15,6 +12,12 @@ consumer_key | API key
 consumer_secret | API secret key
 access_token | generated Access token
 access_secret | generated Access token secret
+
+2. Set up a Pub/Sub channel with GCP Cloud Scheduler set to publish the desired trigger time and date.
+3. Copy the contents the '*hello-world*' directory into a new GCP Cloud Function.
+4. Subscribe the new cloud function to that pub/sub channel.
+5. Hit 'Run now' in GCP Cloud Scheduler to test your bot.
+
 
 ### Branch features
 
