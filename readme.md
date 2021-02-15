@@ -20,7 +20,7 @@ access_secret | generated Access token secret
 
 ### Branch features:
 
-*gcp_implementation:*
+*gcp_implementation branch:*
 
 - [x] Gather top exploits/vulnerabilities from https://cvedetails.com and sift through data to find most recently updated 8+ CVSS score CVE.
 
@@ -34,7 +34,7 @@ access_secret | generated Access token secret
  
 - [ ] Integrate json data from https://nvd.nist.gov.
 
-*hello_world:*
+*hello_world branch:*
 
 - [x] Part of a [![tutorial video](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI) on GCP twitter bots.
 
