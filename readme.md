@@ -14,7 +14,7 @@ access_token | generated Access token
 access_secret | generated Access token secret
 
 2. Set up a Pub/Sub channel with GCP Cloud Scheduler set to publish the desired trigger time and date.
-3. Copy the contents the '*hello-world*' directory into a new GCP Cloud Function.
+3. Copy the contents the '*monthly*' directory into a new GCP Cloud Function.
 4. Subscribe the new cloud function to that pub/sub channel.
 5. Await trigger from Pub/Sub, or press 'Run now' in GCP Cloud Scheduler to test.
 
@@ -36,7 +36,7 @@ access_secret | generated Access token secret
 
 *hello_world branch:*
 
-- [x] Part of a [![tutorial video](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI) on GCP twitter bots.
+- [x] Part of a [tutorial video](https://www.youtube.com/watch?v=qAKjd-PlZsI) on GCP twitter bots.
 
 - [x] Set to tweet 'Hello World' into the twitter account set up in the tutorial video.
 
