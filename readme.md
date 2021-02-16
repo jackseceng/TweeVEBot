@@ -1,6 +1,6 @@
 # Code for example GCP Twitter bot:
 
-*This is Python code from my video tutorial on making twitter bot in GCP. View the original video [![here.](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=qAKjd-PlZsI)*
+*This is Python code from my video tutorial on making twitter bot in GCP. View the original video [here.](https://www.youtube.com/watch?v=qAKjd-PlZsI)*
 
 ### GCP setup guide:
 
