@@ -23,7 +23,7 @@ access_secret | generated Access token secret
 
 *hello_world branch:*
 
-- [x] Set to tweet 'Hello World' into the twitter account set up in the tutorial video.
+- [x] Set to tweet 'Hello World' into the twitter account set up in the [tutorial video](https://youtu.be/qAKjd-PlZsI)
 
 - [x] Integrates with GCP Secret Manager to securely contain twitter credentials.
 
@@ -33,23 +33,7 @@ access_secret | generated Access token secret
 
 - [x] Tested with Python 3.7.
 
-*gcp_implementation branch:*
-
-- [x] Gather top exploits/vulnerabilities from https://cvedetails.com and sift through data to find most recently updated 8+ CVSS score CVE.
-
-- [x] Each month, report on 1 of 4 categories: SQLi, Remote Execution, DDoS & Privilege Escalation.
-
-- [x] Run in Google Cloud Platform as a Cloud Function, triggered on the first day of each month, at 10:00 GMT by GCP Cloud Scheduler and pub/sub channel.
-
-- [x] Integrates with GCP Secret Manager to securely contain TweeVEBot twitter credentials.
-
-- [ ] Report on top 3 most recently modified CVE's of the week.
- 
-- [ ] Integrate json data from https://nvd.nist.gov.
-
-
 ## Developed by Jack:
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
 https://jacksec.uk
-
