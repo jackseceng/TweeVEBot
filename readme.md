@@ -22,7 +22,7 @@ access_secret | generated Access token secret
 
 *gcp_implementation branch:*
 
-- [x] Gather top exploits/vulnerabilities from https://cvedetails.com and sift through data to find most recently updated 8+ CVSS score CVE.
+- [x] Gather top exploits/vulnerabilities from [Mitre](https://cvedetails.com) and sift through data to find most recently updated 8+ CVSS score CVE.
 
 - [x] Each month, report on 1 of 4 categories: SQLi, Remote Execution, DDoS & Privilege Escalation.
 
@@ -31,25 +31,10 @@ access_secret | generated Access token secret
 - [x] Integrates with GCP Secret Manager to securely contain TweeVEBot twitter credentials.
 
 - [ ] Report on top 3 most recently modified CVE's of the week.
- 
-- [ ] Integrate json data from https://nvd.nist.gov.
 
-*hello_world branch:*
-
-- [x] Part of a [tutorial video](https://www.youtube.com/watch?v=qAKjd-PlZsI) on GCP twitter bots.
-
-- [x] Set to tweet 'Hello World' into the twitter account set up in the tutorial video.
-
-- [x] Integrates with GCP Secret Manager to securely contain twitter credentials.
-
-- [x] Fully annotated code to document that exact logic of the main.py script.
-
-- [x] Designed to work as a GCP Cloud Function only.
-
-- [x] Tested with Python 3.7.
+- [ ] Integrate json data from [NIST](https://nvd.nist.gov)
 
 ## Developed by Jack:
 ![Alt Text](https://raw.githubusercontent.com/jacksec/jacksec.github.io/master/assets/img/logo.png)
 
 https://jacksec.uk
-
