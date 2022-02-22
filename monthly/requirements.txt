@@ -1,4 +1,4 @@
-google-cloud-secret-manager==2.0.0
+google-cloud-secret-manager
 tweepy
 python-dateutil
 requests
